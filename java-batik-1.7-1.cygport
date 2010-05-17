@@ -1,0 +1,25 @@
+JAVA_CLASSPATH="js.jar:xalan.jar:xercesImpl.jar:xml-apis.jar:xml-apis-ext.jar:xmlgraphics-commons.jar"
+inherit ant
+
+DESCRIPTION="Java SVG library and tools"
+HOMEPAGE="http://xmlgraphics.apache.org/batik/"
+SRC_URI="mirror://apache/xmlgraphics/batik/${ORIG_PN}-src-${PV}.zip"
+PATCH_URI="1.7-javadoc.patch"
+
+DISTCLEANFILES="lib/*.jar lib/build/*.jar"
+
+ANT_BUILD_TARGETS="jars all-jar javadoc"
+ANT_TEST_TARGETS="regard"
+ANT_INSTALL_JARS="batik-${PV}/batik*.jar batik-${PV}/*/*.jar"
+ANT_INSTALL_JAVADOC="batik-${PV}/docs/javadoc"
+
+src_install() {
+	cd ${B}
+	ant_install
+
+	java_wrapper batik batik-all.jar org.apache.batik.apps.svgbrowser.Main
+	for launcher in ttf2svg slideshow svgpp rasterizer
+	do
+		java_wrapper batik-${launcher} batik-all.jar org.apache.batik.apps.${launcher}.Main
+	done
+}

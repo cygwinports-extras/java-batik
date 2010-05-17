@@ -1,0 +1,6 @@
+category: Graphics Java
+requires: java-rhino java-xalan java-xerces2 java-xml-commons-external java-xmlgraphics-commons
+sdesc: "Java SVG libraries and tools"
+ldesc: "Batik is a Java based toolkit for applications which handle 
+images in the Scalable Vector Graphics (SVG) format for various 
+purposes, such as viewing, generation or manipulation."
